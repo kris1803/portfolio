@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body{
+  font-family: 'Roboto', sans-serif;
+}
+
+#picture-header {
+  background-image: url('../images/bike-background.webp');
+  background-size: cover;
+  background-position: center;
+  height: 150px;
+  margin-bottom: 20px;
+}
+
+.card {
+ margin-bottom: 20px;
+}
+.basket-img{
+  width: 170px;
+}
