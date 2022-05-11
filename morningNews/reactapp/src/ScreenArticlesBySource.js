@@ -5,6 +5,9 @@ import { Card, Icon } from 'antd';
 import Nav from './Nav'
 import { connect } from 'react-redux';
 
+// put your NEWSAPI_API_KEY here
+const NEWSAPI_API_KEY = '';
+
 const { Meta } = Card;
 
 function ScreenArticlesBySource(props) {
@@ -51,7 +54,7 @@ function ScreenArticlesBySource(props) {
 
   useEffect(() => {
     let getNews = async () => {
-      let rawdata = await fetch('https://newsapi.org/v2/top-headlines?sources=' + id + '&apiKey=3ab465eb2e554f95a1d0f2ac998f1750');
+      let rawdata = await fetch('https://newsapi.org/v2/top-headlines?sources=' + id + '&apiKey='+NEWSAPI_API_KEY);
       let data = await rawdata.json();
       let Cards = data.articles.map(article => {
         // check if article is in wishlist

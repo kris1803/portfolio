@@ -7,6 +7,8 @@ import franceImg from './img/icons8-france-96.png';
 import gbImg from './img/icons8-great-britain-96.png';
 //import ukraineImg from './img/icons8-ukraine-96.png';
 
+// put your NEWSAPI_API_KEY here
+const NEWSAPI_API_KEY = '';
 
 function ScreenSource() {
   const [sourceList, setSourceList] = useState([]);
@@ -14,7 +16,7 @@ function ScreenSource() {
   useEffect(() => {
 
     let getNews = async () => {
-      let rawdata = await fetch('https://newsapi.org/v2/top-headlines/sources?apiKey=3ab465eb2e554f95a1d0f2ac998f1750&country=fr');
+      let rawdata = await fetch('https://newsapi.org/v2/top-headlines/sources?apiKey='+NEWSAPI_API_KEY+'&country=fr');
       let data = await rawdata.json();
       setSourceList(data.sources);
       console.log(data.sources);
@@ -25,7 +27,7 @@ function ScreenSource() {
 
   let handleFlagClick = (country) => {
     let getNews = async () => {
-      let rawdata = await fetch('https://newsapi.org/v2/top-headlines/sources?apiKey=16f56ca733924bb6a0e667f077c5cb18&country=' + country);
+      let rawdata = await fetch('https://newsapi.org/v2/top-headlines/sources?apiKey='+NEWSAPI_API_KEY+'&country=' + country);
       let data = await rawdata.json();
       setSourceList(data.sources);
       console.log(data.sources);

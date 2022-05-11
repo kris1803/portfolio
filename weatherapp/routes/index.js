@@ -5,8 +5,8 @@ var request = require('sync-request');
 var cityModel = require('../models/cities');
 var userModel = require('../models/users');
 
-// api = e64fb8049af8d4af879c22d12bc5d47e
-// api call = https://api.openweathermap.org/data/2.5/weather?q={city name}&appid=e64fb8049af8d4af879c22d12bc5d47e&units=metric&lang=fr
+const openWeatherMapApiKey = '';
+
 let cityList = [];
 async function updateList() {
   cityList = await cityModel.find();
@@ -14,7 +14,7 @@ async function updateList() {
 updateList();
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
   res.render('login', { title: 'Weather App' });
 });
 
@@ -25,6 +25,7 @@ router.post('/sign-up', async function (req, res, next) {
     let username = await userModel.findOne({ username: req.body.username });
     let email = await userModel.findOne({ email: req.body.email });
     if (email || username) {
+      // same user is found
       res.redirect('/');
     } else {
       // save informations from form in database
@@ -94,7 +95,7 @@ router.post('/add-city', async function (req, res, next) {
   // to upper case first letter
   city = city.charAt(0).toUpperCase() + city.slice(1);
   // make api call with city
-  var dataAPI = request('GET', 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=e64fb8049af8d4af879c22d12bc5d47e&units=metric&lang=fr');
+  var dataAPI = request('GET', 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid='+openWeatherMapApiKey+'&units=metric&lang=fr');
   var dataAPI = JSON.parse(dataAPI.body);
   var error = '';
   // handle received errors
@@ -130,7 +131,7 @@ router.get('/update-cities', async function (req, res, next) {
   // mise à jour des villes une par une
   for (var i = 0; i < cityList.length; i++) {
     var name = cityList[i].name;
-    var dataAPI = request('GET', 'https://api.openweathermap.org/data/2.5/weather?q=' + name + '&appid=e64fb8049af8d4af879c22d12bc5d47e&units=metric&lang=fr');
+    var dataAPI = request('GET', 'https://api.openweathermap.org/data/2.5/weather?q=' + name + '&appid='+openWeatherMapApiKey+'&units=metric&lang=fr');
     var dataAPI = JSON.parse(dataAPI.body);
     await cityModel.updateOne({ name: name }, {
       img: 'http://openweathermap.org/img/wn/' + dataAPI.weather[0].icon + '@2x.png',
