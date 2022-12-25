@@ -1,20 +1,19 @@
 
-const dbLink = '';
+const MONGODB = '';
 
-let mongoose = require('mongoose');
+const mongoose = require('mongoose');
 // options
 var options = {
     connectTimeoutMS: 5000,
     useNewUrlParser: true,
-    useUnifiedTopology : true
+    useUnifiedTopology: true
 }
 
-mongoose.connect(dbLink, options, function(err) {
+mongoose.connect(MONGODB, options, function (err) {
     if (err) {
         console.log(err)
-    } else {
+    } else
         console.log('Connected to mongodb')
-    }
 });
 
 module.exports = mongoose;
